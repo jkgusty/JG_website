@@ -2,47 +2,87 @@
 title: "About Me"
 ---
 
+
 ## Background
 
-Write a brief introduction about yourself here. Include:
 
-- Your academic background
-- Your interest in data science
-- Your career goals
-- Any relevant experience or projects
+Hello! My name is Jane Gustafson, and I am from Fairfax, Virginia. I am a dedicated and detail-oriented student with a passion for learning. I am currently pursuing a Bachelor of Science in Statistics with an emphasis in data science and a minor in Spanish at Brigham Young University. I enjoy using critical thinking to solve problems which is why my academic and professional interests include statistical modeling and data analysis to apply data-driven insights to real-world problems.
+
 
 ## Education
 
-- **[Your Degree]** - [University Name], [Year]
-- **Relevant Coursework**: Statistics, Data Analysis, Programming, etc.
+
+- **Brigham Young University**, Provo, UT  
+Bachelor of Science in Statistics: Data Science (Minor in Spanish)  
+Expected Graduation: April 2027  
+- GPA: 3.88  
+- Scholarships: Brigham Young Scholarship (2021-2022, 2025-2026)  
+- Relevant coursework: Statistical Modeling, Statistical Inference and Probability, Bayesian Statistics, R Programming, Computer Science
+
 
 ## Skills & Interests
 
+
 ### Technical Skills
-- **Programming**: Python
-- **Data Analysis**: Pandas, NumPy
-- **Visualization**: Matplotlib, Seaborn
-- **Machine Learning**: Scikit-learn
-- **Tools**: Jupyter Notebooks, Git/GitHub
+**Programming & Technical:** R, Python, SQL, VBA (basic)  
+**Data & Analytics:** Statistical Modeling, Data Cleaning, Exploratory Data Analysis, Pandas, Numpy  
+**Visualization:** Matplotlib, Seaborn
+**Machine Learning:** Scikit-learn  
+**Tools & Software:** Excel, MediaGenix, Git/Github, Asana, Dalet  
+**Soft Skills:** Communication, teamwork, time management, problem-solving
+**Languages:** English (native), Spanish (advanced/professional)  
+
 
 ### Areas of Interest
-- [Your specific interests, e.g., environmental data, healthcare analytics, finance, etc.]
-- [Other areas you're curious about]
+- Customer behavior and marketing analytics
+- Ethical AI and responsible data use
+- Data-driven decision making and real-world problem solving  
+
 
 ## Goals
 
-Describe what you hope to achieve through your data science journey:
 
-- Short-term learning objectives
-- Long-term career aspirations
-- Types of problems you want to solve
+Through my data science journey, I hope to:
+
+
+- Strengthen my proficiency in Python and advanced data analysis libraries
+- Deepen my understanding of machine learning algorithms
+- Work on impactful projects that drive strategic decision-making
+- Solve real-world challenges through analytical thinking
+
+
+## Get to Know Me
+Outside of academics and work, I enjoy listening to music, learning languages, and connecting with people from diverse backgrounds. I have a passion for baking, traveling, and volunteering. I enjoy participating in sports, mainly soccer and pickleball, as well as active activities like hiking and rock climbing. Some fun facts about me are that I've been bowling in the White House and I've also sat courtside at a Utah Jazz basketball game!
+
+
+## Work Experience
+**BYU Broadcasting** – Student Break Scheduler, Provo, UT  
+*March 2025 – Present*  
+I help schedule and manage on-air broadcast breaks using priority-based media systems while ensuring seamless program transitions and eliminating dead airtime during live broadcasts. I create and organize trailer campaigns, linking media assets to promotional content and strive to maintain accuracy and consistency under time-sensitive, high-stakes conditions.
+
+
+I've also had the opportunity to sit in on meetings with the statistical analysis team to understand the ratings and viewership of BYUtv shows.
+
+
+## Volunteer Experience
+**The Church of Jesus Christ of Latter-Day Saints** – Volunteer Representative, Mexico City, Mexico  
+*October 2022 – April 2024*  
+- Gained experience in cold-call techniques and interpersonal skills with a 70+ hour work week  
+- Provided interactive training to large groups in over a dozen meetings  
+- Learned to effectively communicate and collaborate with diverse audiences in a second language  
+
 
 ## Contact
 
-- **Email**: your.email@example.com
-- **GitHub**: [github.com/your-username](https://github.com/your-username)
-- **LinkedIn**: [linkedin.com/in/your-profile](https://linkedin.com/in/your-profile)
+
+- **Email**: jkgusty333@gmail.com
+- **GitHub**: [github.com/jkgusty](https://github.com/jkgusty)
+- **LinkedIn**: [linkedin.com/in/jkgusty](https://linkedin.com/in/jkgusty)
+
 
 ---
 
+
 *This portfolio showcases my learning progress and projects completed during my data science studies.*
+
+
