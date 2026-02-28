@@ -191,6 +191,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
   <ul class="collapse">
+  <li><a href="#how-groupby-works" id="toc-how-groupby-works" class="nav-link" data-scroll-target="#how-groupby-works">How <code>groupby</code> works</a>
+  <ul class="collapse">
+  <li><a href="#why-is-pandas-groupby-so-important" id="toc-why-is-pandas-groupby-so-important" class="nav-link" data-scroll-target="#why-is-pandas-groupby-so-important">Why is <code>pandas</code> <code>groupby</code> so important?</a></li>
+  </ul></li>
   <li><a href="#creating-a-sample-dataset" id="toc-creating-a-sample-dataset" class="nav-link" data-scroll-target="#creating-a-sample-dataset">Creating a Sample Dataset</a></li>
   <li><a href="#basic-groupby" id="toc-basic-groupby" class="nav-link" data-scroll-target="#basic-groupby">Basic GroupBy</a></li>
   <li><a href="#multiple-aggregations" id="toc-multiple-aggregations" class="nav-link" data-scroll-target="#multiple-aggregations">Multiple Aggregations</a></li>
@@ -228,7 +232,60 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
 <p>The <code>pandas</code> <code>groupby</code> function is one of the most powerful tools for summarizing and aggregating data in Python. It allows you to split your data into groups based on one or more keys, apply aggregation or transformation functions, and combine the results into a new DataFrame.</p>
-<p>This tutorial will guide you through creating groups, applying common aggregations, and performing advanced transformations — all without needing to load an external dataset.</p>
+<section id="how-groupby-works" class="level2">
+<h2 class="anchored" data-anchor-id="how-groupby-works">How <code>groupby</code> works</h2>
+<p>The following diagram shows the basic concept of splitting, applying functions, and combining results in <code>groupby</code>:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/groupby.webp" title="GroupBy tutorial illustration" class="img-fluid figure-img"></p>
+<figcaption>Example of Pandas groupby output</figcaption>
+</figure>
+</div>
+<section id="why-is-pandas-groupby-so-important" class="level3">
+<h3 class="anchored" data-anchor-id="why-is-pandas-groupby-so-important">Why is <code>pandas</code> <code>groupby</code> so important?</h3>
+<ul>
+<li>Splitting Data into Meaningful Groups
+<ul>
+<li><code>groupby</code> allows you to split your dataset based on one or more columns (keys).
+<ul>
+<li>Example: You can group sales data by store or by employee to analyze each subgroup separately.</li>
+</ul></li>
+</ul></li>
+<li>Aggregation Made Easy
+<ul>
+<li>Once you’ve grouped data, you can apply functions like sum(), mean(), count(), min(), max(), etc., to quickly get summaries.
+<ul>
+<li>Example: Calculate the total sales per store or the average sales per employee without manually filtering the data.</li>
+</ul></li>
+</ul></li>
+<li>Data Transformation
+<ul>
+<li>Beyond aggregation, groupby lets you transform data within each group while keeping the same structure.
+<ul>
+<li>Example: Normalize sales by dividing each employee’s sales by their store’s total sales.</li>
+</ul></li>
+</ul></li>
+<li>Flexibility with Complex Operations
+<ul>
+<li>You can use custom functions, multiple aggregations, or even combine groupby with apply() to perform complex operations on groups.
+<ul>
+<li>Example: Find the top 2 salespeople per store or calculate the weighted average for each group.</li>
+</ul></li>
+</ul></li>
+<li>Efficiency and Scalability
+<ul>
+<li>groupby is optimized for large datasets. Instead of looping through rows manually, it handles grouping operations internally, which is much faster and cleaner.</li>
+</ul></li>
+</ul>
+<p>In this tutorial, you’ll learn how to:</p>
+<ul>
+<li>Create groups in a DataFrame</li>
+<li>Apply aggregation and transformation functions</li>
+<li>Filter and rank groups</li>
+<li>Summarize multiple statistics at once</li>
+</ul>
+</section>
+</section>
 <section id="creating-a-sample-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="creating-a-sample-dataset">Creating a Sample Dataset</h2>
 <p>We’ll start by creating a simple DataFrame with sales data for a small store:</p>
@@ -243,6 +300,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(data)</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This DataFrame contains:</p>
+<ul>
+<li>Store: store identifier</li>
+<li>Employee: employee name</li>
+<li>Sales: total sales per employee</li>
+<li>Hours_Worked: hours worked by each employee</li>
+</ul>
 </section>
 <section id="basic-groupby" class="level2">
 <h2 class="anchored" data-anchor-id="basic-groupby">Basic GroupBy</h2>
@@ -332,7 +396,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="try-it-yourself" class="level2">
 <h2 class="anchored" data-anchor-id="try-it-yourself">Try it yourself!</h2>
-<p>Experiment with groupby on your own datasets. Try combining multiple columns, applying different aggregation functions, and transforming groups to calculate percentages or rankings. Understanding groupby deeply will make your data analysis faster, cleaner, and more efficient.</p>
+<p>Either copy this tutorial code and run it on your own machine or experiment with groupby on your own datasets. Try combining multiple columns, applying different aggregation functions, and transforming groups to calculate percentages or rankings. Understanding groupby deeply will make your data analysis faster, cleaner, and more efficient.</p>
 
 
 <!-- -->
@@ -800,114 +864,154 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>The <span class="in">`pandas`</span> <span class="in">`groupby`</span> function is one of the most powerful tools for summarizing and aggregating data in Python. It allows you to split your data into groups based on one or more keys, apply aggregation or transformation functions, and combine the results into a new DataFrame.  </span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>This tutorial will guide you through creating groups, applying common aggregations, and performing advanced transformations — all without needing to load an external dataset.</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">## How `groupby` works</span></span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="fu">## Creating a Sample Dataset</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>The following diagram shows the basic concept of splitting, applying functions, and combining results in <span class="in">`groupby`</span>:</span>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>We’ll start by creating a simple DataFrame with sales data for a small store:</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="al">![Example of Pandas groupby output](images/groupby.webp "GroupBy tutorial illustration")</span></span>
 <span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> {</span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Store'</span>: [<span class="st">'A'</span>, <span class="st">'A'</span>, <span class="st">'B'</span>, <span class="st">'B'</span>, <span class="st">'C'</span>, <span class="st">'C'</span>, <span class="st">'C'</span>],</span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Employee'</span>: [<span class="st">'Alice'</span>, <span class="st">'Bob'</span>, <span class="st">'Charlie'</span>, <span class="st">'Diana'</span>, <span class="st">'Eve'</span>, <span class="st">'Frank'</span>, <span class="st">'Grace'</span>],</span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Sales'</span>: [<span class="dv">250</span>, <span class="dv">200</span>, <span class="dv">150</span>, <span class="dv">300</span>, <span class="dv">400</span>, <span class="dv">350</span>, <span class="dv">200</span>],</span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Hours_Worked'</span>: [<span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">6</span>, <span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">7</span>]</span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="fu">### Why is `pandas` `groupby` so important?</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Splitting Data into Meaningful Groups</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span><span class="in">`groupby`</span> allows you to split your dataset based on one or more columns (keys).</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="ss">        - </span>Example: You can group sales data by store or by employee to analyze each subgroup separately.</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Aggregation Made Easy</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Once you’ve grouped data, you can apply functions like sum(), mean(), count(), min(), max(), etc., to quickly get summaries.</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="ss">        - </span>Example: Calculate the total sales per store or the average sales per employee without manually filtering the data.</span>
 <span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(data)</span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>df</span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Data Transformation</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Beyond aggregation, groupby lets you transform data within each group while keeping the same structure.</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="ss">        - </span>Example: Normalize sales by dividing each employee’s sales by their store’s total sales.</span>
 <span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="fu">## Basic GroupBy</span></span>
-<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>You could group the data by the Store column and calculate the total sales per store:</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Flexibility with Complex Operations</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>You can use custom functions, multiple aggregations, or even combine groupby with apply() to perform complex operations on groups.</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a><span class="ss">        - </span>Example: Find the top 2 salespeople per store or calculate the weighted average for each group.</span>
 <span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a><span class="in">``` python</span></span>
-<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>store_sales <span class="op">=</span> df.groupby(<span class="st">'Store'</span>)[<span class="st">'Sales'</span>].<span class="bu">sum</span>()</span>
-<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>store_sales</span>
-<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>df.groupby('Store') splits the DataFrame into groups based on the Store column.</span>
-<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">'Sales'</span><span class="co">]</span> selects the column to aggregate.</span>
-<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>.sum() computes the sum of sales for each group.</span>
-<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>You could also group the data by the Store column and calculate the total hours worked per store:</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Efficiency and Scalability</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>groupby is optimized for large datasets. Instead of looping through rows manually, it handles grouping operations internally, which is much faster and cleaner.</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>In this tutorial, you'll learn how to:</span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Create groups in a DataFrame</span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Apply aggregation and transformation functions</span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Filter and rank groups</span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Summarize multiple statistics at once</span>
 <span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a><span class="in">``` python</span></span>
-<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>store_hours <span class="op">=</span> df.groupby(<span class="st">'Store'</span>)[<span class="st">'Hours_Worked'</span>].<span class="bu">sum</span>()</span>
-<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>store_hours</span>
-<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>df.groupby('Store') splits the DataFrame into groups based on the Store column.</span>
-<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">'Hours_Worked'</span><span class="co">]</span> selects the column we want to aggregate.</span>
-<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>.sum() computes the total hours worked for each store.</span>
-<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a><span class="fu">## Multiple Aggregations</span></span>
-<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a>You can compute multiple statistics at once using .agg():</span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a><span class="fu">## Creating a Sample Dataset</span></span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>We’ll start by creating a simple DataFrame with sales data for a small store:</span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> {</span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Store'</span>: [<span class="st">'A'</span>, <span class="st">'A'</span>, <span class="st">'B'</span>, <span class="st">'B'</span>, <span class="st">'C'</span>, <span class="st">'C'</span>, <span class="st">'C'</span>],</span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Employee'</span>: [<span class="st">'Alice'</span>, <span class="st">'Bob'</span>, <span class="st">'Charlie'</span>, <span class="st">'Diana'</span>, <span class="st">'Eve'</span>, <span class="st">'Frank'</span>, <span class="st">'Grace'</span>],</span>
+<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Sales'</span>: [<span class="dv">250</span>, <span class="dv">200</span>, <span class="dv">150</span>, <span class="dv">300</span>, <span class="dv">400</span>, <span class="dv">350</span>, <span class="dv">200</span>],</span>
+<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Hours_Worked'</span>: [<span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">6</span>, <span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">7</span>]</span>
+<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a><span class="in">``` python</span></span>
-<span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a>store_summary <span class="op">=</span> df.groupby(<span class="st">'Store'</span>).agg(</span>
-<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a>    total_sales<span class="op">=</span>(<span class="st">'Sales'</span>, <span class="st">'sum'</span>),</span>
-<span id="cb8-61"><a href="#cb8-61" aria-hidden="true" tabindex="-1"></a>    average_sales<span class="op">=</span>(<span class="st">'Sales'</span>, <span class="st">'mean'</span>),</span>
-<span id="cb8-62"><a href="#cb8-62" aria-hidden="true" tabindex="-1"></a>    total_hours<span class="op">=</span>(<span class="st">'Hours_Worked'</span>, <span class="st">'sum'</span>)</span>
-<span id="cb8-63"><a href="#cb8-63" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb8-64"><a href="#cb8-64" aria-hidden="true" tabindex="-1"></a>store_summary</span>
-<span id="cb8-65"><a href="#cb8-65" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb8-66"><a href="#cb8-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-67"><a href="#cb8-67" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>You can pass a dictionary of {new_column_name: (column_to_aggregate, function)} to .agg().</span>
-<span id="cb8-68"><a href="#cb8-68" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Supports multiple aggregation functions at once.</span>
-<span id="cb8-69"><a href="#cb8-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(data)</span>
+<span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a>df</span>
+<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-61"><a href="#cb8-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-62"><a href="#cb8-62" aria-hidden="true" tabindex="-1"></a>This DataFrame contains:</span>
+<span id="cb8-63"><a href="#cb8-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-64"><a href="#cb8-64" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Store: store identifier</span>
+<span id="cb8-65"><a href="#cb8-65" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Employee: employee name</span>
+<span id="cb8-66"><a href="#cb8-66" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Sales: total sales per employee</span>
+<span id="cb8-67"><a href="#cb8-67" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Hours_Worked: hours worked by each employee</span>
+<span id="cb8-68"><a href="#cb8-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-69"><a href="#cb8-69" aria-hidden="true" tabindex="-1"></a><span class="fu">## Basic GroupBy</span></span>
 <span id="cb8-70"><a href="#cb8-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-71"><a href="#cb8-71" aria-hidden="true" tabindex="-1"></a><span class="fu">## GroupBy Multiple Columns</span></span>
+<span id="cb8-71"><a href="#cb8-71" aria-hidden="true" tabindex="-1"></a>You could group the data by the Store column and calculate the total sales per store:</span>
 <span id="cb8-72"><a href="#cb8-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-73"><a href="#cb8-73" aria-hidden="true" tabindex="-1"></a>Grouping by multiple keys is also straightforward. Suppose we want average sales by store and employee:</span>
-<span id="cb8-74"><a href="#cb8-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-75"><a href="#cb8-75" aria-hidden="true" tabindex="-1"></a><span class="in">``` python </span></span>
-<span id="cb8-76"><a href="#cb8-76" aria-hidden="true" tabindex="-1"></a>employee_summary <span class="op">=</span> df.groupby([<span class="st">'Store'</span>, <span class="st">'Employee'</span>])[<span class="st">'Sales'</span>].mean()</span>
-<span id="cb8-77"><a href="#cb8-77" aria-hidden="true" tabindex="-1"></a>employee_summary</span>
-<span id="cb8-78"><a href="#cb8-78" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb8-79"><a href="#cb8-79" aria-hidden="true" tabindex="-1"></a>Each combination of Store and Employee is treated as a separate group.</span>
-<span id="cb8-80"><a href="#cb8-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-73"><a href="#cb8-73" aria-hidden="true" tabindex="-1"></a><span class="in">``` python</span></span>
+<span id="cb8-74"><a href="#cb8-74" aria-hidden="true" tabindex="-1"></a>store_sales <span class="op">=</span> df.groupby(<span class="st">'Store'</span>)[<span class="st">'Sales'</span>].<span class="bu">sum</span>()</span>
+<span id="cb8-75"><a href="#cb8-75" aria-hidden="true" tabindex="-1"></a>store_sales</span>
+<span id="cb8-76"><a href="#cb8-76" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-77"><a href="#cb8-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-78"><a href="#cb8-78" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>df.groupby('Store') splits the DataFrame into groups based on the Store column.</span>
+<span id="cb8-79"><a href="#cb8-79" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">'Sales'</span><span class="co">]</span> selects the column to aggregate.</span>
+<span id="cb8-80"><a href="#cb8-80" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>.sum() computes the sum of sales for each group.</span>
 <span id="cb8-81"><a href="#cb8-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-82"><a href="#cb8-82" aria-hidden="true" tabindex="-1"></a><span class="fu">## Filtering Groups</span></span>
+<span id="cb8-82"><a href="#cb8-82" aria-hidden="true" tabindex="-1"></a>You could also group the data by the Store column and calculate the total hours worked per store:</span>
 <span id="cb8-83"><a href="#cb8-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-84"><a href="#cb8-84" aria-hidden="true" tabindex="-1"></a>You can filter groups using .filter(). For example, only keep stores with total sales greater than 500:</span>
-<span id="cb8-85"><a href="#cb8-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-86"><a href="#cb8-86" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
-<span id="cb8-87"><a href="#cb8-87" aria-hidden="true" tabindex="-1"></a>high_sales_stores <span class="op">=</span> df.groupby(<span class="st">'Store'</span>).<span class="bu">filter</span>(<span class="kw">lambda</span> x: x[<span class="st">'Sales'</span>].<span class="bu">sum</span>() <span class="op">&gt;</span> <span class="dv">500</span>)</span>
-<span id="cb8-88"><a href="#cb8-88" aria-hidden="true" tabindex="-1"></a>high_sales_stores</span>
-<span id="cb8-89"><a href="#cb8-89" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb8-90"><a href="#cb8-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-91"><a href="#cb8-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-92"><a href="#cb8-92" aria-hidden="true" tabindex="-1"></a><span class="fu">## Transforming Groups</span></span>
+<span id="cb8-84"><a href="#cb8-84" aria-hidden="true" tabindex="-1"></a><span class="in">``` python</span></span>
+<span id="cb8-85"><a href="#cb8-85" aria-hidden="true" tabindex="-1"></a>store_hours <span class="op">=</span> df.groupby(<span class="st">'Store'</span>)[<span class="st">'Hours_Worked'</span>].<span class="bu">sum</span>()</span>
+<span id="cb8-86"><a href="#cb8-86" aria-hidden="true" tabindex="-1"></a>store_hours</span>
+<span id="cb8-87"><a href="#cb8-87" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-88"><a href="#cb8-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-89"><a href="#cb8-89" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>df.groupby('Store') splits the DataFrame into groups based on the Store column.</span>
+<span id="cb8-90"><a href="#cb8-90" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">'Hours_Worked'</span><span class="co">]</span> selects the column we want to aggregate.</span>
+<span id="cb8-91"><a href="#cb8-91" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>.sum() computes the total hours worked for each store.</span>
+<span id="cb8-92"><a href="#cb8-92" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-93"><a href="#cb8-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-94"><a href="#cb8-94" aria-hidden="true" tabindex="-1"></a>.transform() allows you to perform operations that return an array of the same length as the original DataFrame. For example, calculate each employee's sales as a percentage of their store's total sales:</span>
+<span id="cb8-94"><a href="#cb8-94" aria-hidden="true" tabindex="-1"></a><span class="fu">## Multiple Aggregations</span></span>
 <span id="cb8-95"><a href="#cb8-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-96"><a href="#cb8-96" aria-hidden="true" tabindex="-1"></a><span class="in">``` python</span></span>
-<span id="cb8-97"><a href="#cb8-97" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Sales_Percent'</span>] <span class="op">=</span> df.groupby(<span class="st">'Store'</span>)[<span class="st">'Sales'</span>].transform(<span class="kw">lambda</span> x: x <span class="op">/</span> x.<span class="bu">sum</span>() <span class="op">*</span> <span class="dv">100</span>)</span>
-<span id="cb8-98"><a href="#cb8-98" aria-hidden="true" tabindex="-1"></a>df</span>
-<span id="cb8-99"><a href="#cb8-99" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb8-100"><a href="#cb8-100" aria-hidden="true" tabindex="-1"></a>Useful for normalization and creating new columns based on group-level calculations.</span>
-<span id="cb8-101"><a href="#cb8-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-102"><a href="#cb8-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-103"><a href="#cb8-103" aria-hidden="true" tabindex="-1"></a><span class="fu">## Summary Table of Common GroupBy Methods</span></span>
-<span id="cb8-104"><a href="#cb8-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-105"><a href="#cb8-105" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Method      <span class="pp">|</span> Purpose                             <span class="pp">|</span></span>
-<span id="cb8-106"><a href="#cb8-106" aria-hidden="true" tabindex="-1"></a><span class="pp">|:-----------:|:-----------------------------------:|</span></span>
-<span id="cb8-107"><a href="#cb8-107" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>.sum()       <span class="pp">|</span> sum values within a group           <span class="pp">|</span></span>
-<span id="cb8-108"><a href="#cb8-108" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>.mean()      <span class="pp">|</span> average values within each group    <span class="pp">|</span></span>
-<span id="cb8-109"><a href="#cb8-109" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>.agg()       <span class="pp">|</span> multiple aggregations at once       <span class="pp">|</span></span>
-<span id="cb8-110"><a href="#cb8-110" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>.filter()    <span class="pp">|</span> keep groups that satisfy a condition<span class="pp">|</span></span>
-<span id="cb8-111"><a href="#cb8-111" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>.transform() <span class="pp">|</span> transform values while keeping shape<span class="pp">|</span></span>
+<span id="cb8-96"><a href="#cb8-96" aria-hidden="true" tabindex="-1"></a>You can compute multiple statistics at once using .agg():</span>
+<span id="cb8-97"><a href="#cb8-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-98"><a href="#cb8-98" aria-hidden="true" tabindex="-1"></a><span class="in">``` python</span></span>
+<span id="cb8-99"><a href="#cb8-99" aria-hidden="true" tabindex="-1"></a>store_summary <span class="op">=</span> df.groupby(<span class="st">'Store'</span>).agg(</span>
+<span id="cb8-100"><a href="#cb8-100" aria-hidden="true" tabindex="-1"></a>    total_sales<span class="op">=</span>(<span class="st">'Sales'</span>, <span class="st">'sum'</span>),</span>
+<span id="cb8-101"><a href="#cb8-101" aria-hidden="true" tabindex="-1"></a>    average_sales<span class="op">=</span>(<span class="st">'Sales'</span>, <span class="st">'mean'</span>),</span>
+<span id="cb8-102"><a href="#cb8-102" aria-hidden="true" tabindex="-1"></a>    total_hours<span class="op">=</span>(<span class="st">'Hours_Worked'</span>, <span class="st">'sum'</span>)</span>
+<span id="cb8-103"><a href="#cb8-103" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-104"><a href="#cb8-104" aria-hidden="true" tabindex="-1"></a>store_summary</span>
+<span id="cb8-105"><a href="#cb8-105" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-106"><a href="#cb8-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-107"><a href="#cb8-107" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>You can pass a dictionary of {new_column_name: (column_to_aggregate, function)} to .agg().</span>
+<span id="cb8-108"><a href="#cb8-108" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Supports multiple aggregation functions at once.</span>
+<span id="cb8-109"><a href="#cb8-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-110"><a href="#cb8-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-111"><a href="#cb8-111" aria-hidden="true" tabindex="-1"></a><span class="fu">## GroupBy Multiple Columns</span></span>
 <span id="cb8-112"><a href="#cb8-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-113"><a href="#cb8-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-114"><a href="#cb8-114" aria-hidden="true" tabindex="-1"></a><span class="fu">## Try it yourself! </span></span>
-<span id="cb8-115"><a href="#cb8-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-116"><a href="#cb8-116" aria-hidden="true" tabindex="-1"></a>Experiment with groupby on your own datasets. Try combining multiple columns, applying different aggregation functions, and transforming groups to calculate percentages or rankings. Understanding groupby deeply will make your data analysis faster, cleaner, and more efficient.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb8-113"><a href="#cb8-113" aria-hidden="true" tabindex="-1"></a>Grouping by multiple keys is also straightforward. Suppose we want average sales by store and employee:</span>
+<span id="cb8-114"><a href="#cb8-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-115"><a href="#cb8-115" aria-hidden="true" tabindex="-1"></a><span class="in">``` python </span></span>
+<span id="cb8-116"><a href="#cb8-116" aria-hidden="true" tabindex="-1"></a>employee_summary <span class="op">=</span> df.groupby([<span class="st">'Store'</span>, <span class="st">'Employee'</span>])[<span class="st">'Sales'</span>].mean()</span>
+<span id="cb8-117"><a href="#cb8-117" aria-hidden="true" tabindex="-1"></a>employee_summary</span>
+<span id="cb8-118"><a href="#cb8-118" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-119"><a href="#cb8-119" aria-hidden="true" tabindex="-1"></a>Each combination of Store and Employee is treated as a separate group.</span>
+<span id="cb8-120"><a href="#cb8-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-121"><a href="#cb8-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-122"><a href="#cb8-122" aria-hidden="true" tabindex="-1"></a><span class="fu">## Filtering Groups</span></span>
+<span id="cb8-123"><a href="#cb8-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-124"><a href="#cb8-124" aria-hidden="true" tabindex="-1"></a>You can filter groups using .filter(). For example, only keep stores with total sales greater than 500:</span>
+<span id="cb8-125"><a href="#cb8-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-126"><a href="#cb8-126" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
+<span id="cb8-127"><a href="#cb8-127" aria-hidden="true" tabindex="-1"></a>high_sales_stores <span class="op">=</span> df.groupby(<span class="st">'Store'</span>).<span class="bu">filter</span>(<span class="kw">lambda</span> x: x[<span class="st">'Sales'</span>].<span class="bu">sum</span>() <span class="op">&gt;</span> <span class="dv">500</span>)</span>
+<span id="cb8-128"><a href="#cb8-128" aria-hidden="true" tabindex="-1"></a>high_sales_stores</span>
+<span id="cb8-129"><a href="#cb8-129" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-130"><a href="#cb8-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-131"><a href="#cb8-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-132"><a href="#cb8-132" aria-hidden="true" tabindex="-1"></a><span class="fu">## Transforming Groups</span></span>
+<span id="cb8-133"><a href="#cb8-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-134"><a href="#cb8-134" aria-hidden="true" tabindex="-1"></a>.transform() allows you to perform operations that return an array of the same length as the original DataFrame. For example, calculate each employee's sales as a percentage of their store's total sales:</span>
+<span id="cb8-135"><a href="#cb8-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-136"><a href="#cb8-136" aria-hidden="true" tabindex="-1"></a><span class="in">``` python</span></span>
+<span id="cb8-137"><a href="#cb8-137" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Sales_Percent'</span>] <span class="op">=</span> df.groupby(<span class="st">'Store'</span>)[<span class="st">'Sales'</span>].transform(<span class="kw">lambda</span> x: x <span class="op">/</span> x.<span class="bu">sum</span>() <span class="op">*</span> <span class="dv">100</span>)</span>
+<span id="cb8-138"><a href="#cb8-138" aria-hidden="true" tabindex="-1"></a>df</span>
+<span id="cb8-139"><a href="#cb8-139" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-140"><a href="#cb8-140" aria-hidden="true" tabindex="-1"></a>Useful for normalization and creating new columns based on group-level calculations.</span>
+<span id="cb8-141"><a href="#cb8-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-142"><a href="#cb8-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-143"><a href="#cb8-143" aria-hidden="true" tabindex="-1"></a><span class="fu">## Summary Table of Common GroupBy Methods</span></span>
+<span id="cb8-144"><a href="#cb8-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-145"><a href="#cb8-145" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Method      <span class="pp">|</span> Purpose                             <span class="pp">|</span></span>
+<span id="cb8-146"><a href="#cb8-146" aria-hidden="true" tabindex="-1"></a><span class="pp">|:-----------:|:-----------------------------------:|</span></span>
+<span id="cb8-147"><a href="#cb8-147" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>.sum()       <span class="pp">|</span> sum values within a group           <span class="pp">|</span></span>
+<span id="cb8-148"><a href="#cb8-148" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>.mean()      <span class="pp">|</span> average values within each group    <span class="pp">|</span></span>
+<span id="cb8-149"><a href="#cb8-149" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>.agg()       <span class="pp">|</span> multiple aggregations at once       <span class="pp">|</span></span>
+<span id="cb8-150"><a href="#cb8-150" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>.filter()    <span class="pp">|</span> keep groups that satisfy a condition<span class="pp">|</span></span>
+<span id="cb8-151"><a href="#cb8-151" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>.transform() <span class="pp">|</span> transform values while keeping shape<span class="pp">|</span></span>
+<span id="cb8-152"><a href="#cb8-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-153"><a href="#cb8-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-154"><a href="#cb8-154" aria-hidden="true" tabindex="-1"></a><span class="fu">## Try it yourself! </span></span>
+<span id="cb8-155"><a href="#cb8-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-156"><a href="#cb8-156" aria-hidden="true" tabindex="-1"></a>Either copy this tutorial code and run it on your own machine or experiment with groupby on your own datasets. Try combining multiple columns, applying different aggregation functions, and transforming groups to calculate percentages or rankings. Understanding groupby deeply will make your data analysis faster, cleaner, and more efficient.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

@@ -24,14 +24,21 @@
     "href": "tutorial.html",
     "title": "Mastering Pandas Groupby for Data Analysis",
     "section": "",
-    "text": "The pandas groupby function is one of the most powerful tools for summarizing and aggregating data in Python. It allows you to split your data into groups based on one or more keys, apply aggregation or transformation functions, and combine the results into a new DataFrame.\nThis tutorial will guide you through creating groups, applying common aggregations, and performing advanced transformations — all without needing to load an external dataset.\n\n\nWe’ll start by creating a simple DataFrame with sales data for a small store:\nimport pandas as pd\n\ndata = {\n    'Store': ['A', 'A', 'B', 'B', 'C', 'C', 'C'],\n    'Employee': ['Alice', 'Bob', 'Charlie', 'Diana', 'Eve', 'Frank', 'Grace'],\n    'Sales': [250, 200, 150, 300, 400, 350, 200],\n    'Hours_Worked': [8, 7, 8, 6, 9, 8, 7]\n}\n\ndf = pd.DataFrame(data)\ndf\n\n\n\nYou could group the data by the Store column and calculate the total sales per store:\nstore_sales = df.groupby('Store')['Sales'].sum()\nstore_sales\n\ndf.groupby(‘Store’) splits the DataFrame into groups based on the Store column.\n[‘Sales’] selects the column to aggregate.\n.sum() computes the sum of sales for each group.\n\nYou could also group the data by the Store column and calculate the total hours worked per store:\nstore_hours = df.groupby('Store')['Hours_Worked'].sum()\nstore_hours\n\ndf.groupby(‘Store’) splits the DataFrame into groups based on the Store column.\n[‘Hours_Worked’] selects the column we want to aggregate.\n.sum() computes the total hours worked for each store.\n\n\n\n\nYou can compute multiple statistics at once using .agg():\nstore_summary = df.groupby('Store').agg(\n    total_sales=('Sales', 'sum'),\n    average_sales=('Sales', 'mean'),\n    total_hours=('Hours_Worked', 'sum')\n)\nstore_summary\n\nYou can pass a dictionary of {new_column_name: (column_to_aggregate, function)} to .agg().\nSupports multiple aggregation functions at once.\n\n\n\n\nGrouping by multiple keys is also straightforward. Suppose we want average sales by store and employee:\nemployee_summary = df.groupby(['Store', 'Employee'])['Sales'].mean()\nemployee_summary\nEach combination of Store and Employee is treated as a separate group.\n\n\n\nYou can filter groups using .filter(). For example, only keep stores with total sales greater than 500:\nhigh_sales_stores = df.groupby('Store').filter(lambda x: x['Sales'].sum() &gt; 500)\nhigh_sales_stores\n\n\n\n.transform() allows you to perform operations that return an array of the same length as the original DataFrame. For example, calculate each employee’s sales as a percentage of their store’s total sales:\ndf['Sales_Percent'] = df.groupby('Store')['Sales'].transform(lambda x: x / x.sum() * 100)\ndf\nUseful for normalization and creating new columns based on group-level calculations.\n\n\n\n\n\n\nMethod\nPurpose\n\n\n\n\n.sum()\nsum values within a group\n\n\n.mean()\naverage values within each group\n\n\n.agg()\nmultiple aggregations at once\n\n\n.filter()\nkeep groups that satisfy a condition\n\n\n.transform()\ntransform values while keeping shape\n\n\n\n\n\n\nExperiment with groupby on your own datasets. Try combining multiple columns, applying different aggregation functions, and transforming groups to calculate percentages or rankings. Understanding groupby deeply will make your data analysis faster, cleaner, and more efficient."
+    "text": "The pandas groupby function is one of the most powerful tools for summarizing and aggregating data in Python. It allows you to split your data into groups based on one or more keys, apply aggregation or transformation functions, and combine the results into a new DataFrame.\n\n\nThe following diagram shows the basic concept of splitting, applying functions, and combining results in groupby:\n\n\n\nExample of Pandas groupby output\n\n\n\n\n\nSplitting Data into Meaningful Groups\n\ngroupby allows you to split your dataset based on one or more columns (keys).\n\nExample: You can group sales data by store or by employee to analyze each subgroup separately.\n\n\nAggregation Made Easy\n\nOnce you’ve grouped data, you can apply functions like sum(), mean(), count(), min(), max(), etc., to quickly get summaries.\n\nExample: Calculate the total sales per store or the average sales per employee without manually filtering the data.\n\n\nData Transformation\n\nBeyond aggregation, groupby lets you transform data within each group while keeping the same structure.\n\nExample: Normalize sales by dividing each employee’s sales by their store’s total sales.\n\n\nFlexibility with Complex Operations\n\nYou can use custom functions, multiple aggregations, or even combine groupby with apply() to perform complex operations on groups.\n\nExample: Find the top 2 salespeople per store or calculate the weighted average for each group.\n\n\nEfficiency and Scalability\n\ngroupby is optimized for large datasets. Instead of looping through rows manually, it handles grouping operations internally, which is much faster and cleaner.\n\n\nIn this tutorial, you’ll learn how to:\n\nCreate groups in a DataFrame\nApply aggregation and transformation functions\nFilter and rank groups\nSummarize multiple statistics at once\n\n\n\n\n\nWe’ll start by creating a simple DataFrame with sales data for a small store:\nimport pandas as pd\n\ndata = {\n    'Store': ['A', 'A', 'B', 'B', 'C', 'C', 'C'],\n    'Employee': ['Alice', 'Bob', 'Charlie', 'Diana', 'Eve', 'Frank', 'Grace'],\n    'Sales': [250, 200, 150, 300, 400, 350, 200],\n    'Hours_Worked': [8, 7, 8, 6, 9, 8, 7]\n}\n\ndf = pd.DataFrame(data)\ndf\nThis DataFrame contains:\n\nStore: store identifier\nEmployee: employee name\nSales: total sales per employee\nHours_Worked: hours worked by each employee\n\n\n\n\nYou could group the data by the Store column and calculate the total sales per store:\nstore_sales = df.groupby('Store')['Sales'].sum()\nstore_sales\n\ndf.groupby(‘Store’) splits the DataFrame into groups based on the Store column.\n[‘Sales’] selects the column to aggregate.\n.sum() computes the sum of sales for each group.\n\nYou could also group the data by the Store column and calculate the total hours worked per store:\nstore_hours = df.groupby('Store')['Hours_Worked'].sum()\nstore_hours\n\ndf.groupby(‘Store’) splits the DataFrame into groups based on the Store column.\n[‘Hours_Worked’] selects the column we want to aggregate.\n.sum() computes the total hours worked for each store.\n\n\n\n\nYou can compute multiple statistics at once using .agg():\nstore_summary = df.groupby('Store').agg(\n    total_sales=('Sales', 'sum'),\n    average_sales=('Sales', 'mean'),\n    total_hours=('Hours_Worked', 'sum')\n)\nstore_summary\n\nYou can pass a dictionary of {new_column_name: (column_to_aggregate, function)} to .agg().\nSupports multiple aggregation functions at once.\n\n\n\n\nGrouping by multiple keys is also straightforward. Suppose we want average sales by store and employee:\nemployee_summary = df.groupby(['Store', 'Employee'])['Sales'].mean()\nemployee_summary\nEach combination of Store and Employee is treated as a separate group.\n\n\n\nYou can filter groups using .filter(). For example, only keep stores with total sales greater than 500:\nhigh_sales_stores = df.groupby('Store').filter(lambda x: x['Sales'].sum() &gt; 500)\nhigh_sales_stores\n\n\n\n.transform() allows you to perform operations that return an array of the same length as the original DataFrame. For example, calculate each employee’s sales as a percentage of their store’s total sales:\ndf['Sales_Percent'] = df.groupby('Store')['Sales'].transform(lambda x: x / x.sum() * 100)\ndf\nUseful for normalization and creating new columns based on group-level calculations.\n\n\n\n\n\n\nMethod\nPurpose\n\n\n\n\n.sum()\nsum values within a group\n\n\n.mean()\naverage values within each group\n\n\n.agg()\nmultiple aggregations at once\n\n\n.filter()\nkeep groups that satisfy a condition\n\n\n.transform()\ntransform values while keeping shape\n\n\n\n\n\n\nEither copy this tutorial code and run it on your own machine or experiment with groupby on your own datasets. Try combining multiple columns, applying different aggregation functions, and transforming groups to calculate percentages or rankings. Understanding groupby deeply will make your data analysis faster, cleaner, and more efficient."
+  },
+  {
+    "objectID": "tutorial.html#how-groupby-works",
+    "href": "tutorial.html#how-groupby-works",
+    "title": "Mastering Pandas Groupby for Data Analysis",
+    "section": "",
+    "text": "The following diagram shows the basic concept of splitting, applying functions, and combining results in groupby:\n\n\n\nExample of Pandas groupby output\n\n\n\n\n\nSplitting Data into Meaningful Groups\n\ngroupby allows you to split your dataset based on one or more columns (keys).\n\nExample: You can group sales data by store or by employee to analyze each subgroup separately.\n\n\nAggregation Made Easy\n\nOnce you’ve grouped data, you can apply functions like sum(), mean(), count(), min(), max(), etc., to quickly get summaries.\n\nExample: Calculate the total sales per store or the average sales per employee without manually filtering the data.\n\n\nData Transformation\n\nBeyond aggregation, groupby lets you transform data within each group while keeping the same structure.\n\nExample: Normalize sales by dividing each employee’s sales by their store’s total sales.\n\n\nFlexibility with Complex Operations\n\nYou can use custom functions, multiple aggregations, or even combine groupby with apply() to perform complex operations on groups.\n\nExample: Find the top 2 salespeople per store or calculate the weighted average for each group.\n\n\nEfficiency and Scalability\n\ngroupby is optimized for large datasets. Instead of looping through rows manually, it handles grouping operations internally, which is much faster and cleaner.\n\n\nIn this tutorial, you’ll learn how to:\n\nCreate groups in a DataFrame\nApply aggregation and transformation functions\nFilter and rank groups\nSummarize multiple statistics at once"
   },
   {
     "objectID": "tutorial.html#creating-a-sample-dataset",
     "href": "tutorial.html#creating-a-sample-dataset",
     "title": "Mastering Pandas Groupby for Data Analysis",
     "section": "",
-    "text": "We’ll start by creating a simple DataFrame with sales data for a small store:\nimport pandas as pd\n\ndata = {\n    'Store': ['A', 'A', 'B', 'B', 'C', 'C', 'C'],\n    'Employee': ['Alice', 'Bob', 'Charlie', 'Diana', 'Eve', 'Frank', 'Grace'],\n    'Sales': [250, 200, 150, 300, 400, 350, 200],\n    'Hours_Worked': [8, 7, 8, 6, 9, 8, 7]\n}\n\ndf = pd.DataFrame(data)\ndf"
+    "text": "We’ll start by creating a simple DataFrame with sales data for a small store:\nimport pandas as pd\n\ndata = {\n    'Store': ['A', 'A', 'B', 'B', 'C', 'C', 'C'],\n    'Employee': ['Alice', 'Bob', 'Charlie', 'Diana', 'Eve', 'Frank', 'Grace'],\n    'Sales': [250, 200, 150, 300, 400, 350, 200],\n    'Hours_Worked': [8, 7, 8, 6, 9, 8, 7]\n}\n\ndf = pd.DataFrame(data)\ndf\nThis DataFrame contains:\n\nStore: store identifier\nEmployee: employee name\nSales: total sales per employee\nHours_Worked: hours worked by each employee"
   },
   {
     "objectID": "tutorial.html#basic-groupby",
@@ -80,97 +87,6 @@
     "href": "tutorial.html#try-it-yourself",
     "title": "Mastering Pandas Groupby for Data Analysis",
     "section": "",
-    "text": "Experiment with groupby on your own datasets. Try combining multiple columns, applying different aggregation functions, and transforming groups to calculate percentages or rankings. Understanding groupby deeply will make your data analysis faster, cleaner, and more efficient."
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Welcome to My Data Science Portfolio",
-    "section": "",
-    "text": "Welcome to my data science portfolio! This site shows my journey learning data science and analytics. Here you’ll find projects that demonstrate what I’ve learned and discovered.\n\n\nThis portfolio shows my work learning data science. Each project includes:\n\nMy code with documentation\nVisualizations I created\nWhat I learned and discovered\n\nI built this site using Quarto and host it on GitHub Pages.\n\n\n\n\nProgramming: Python, Pandas for data analysis\nVisualization: Creating charts with Matplotlib and Seaborn\nData Collection: Getting data from files, websites, and APIs\nAnalysis: Finding patterns and answering questions with data\n\n\n\n\n\n\n\nLearn how I explore datasets to find interesting patterns and answer questions.\n\n\n\nSee how I gather data from different sources and prepare it for analysis.\n\n\n\nSee how I tackle a data science project beginning to end.\n\n\n\nThanks for visiting! Feel free to explore my projects and see what I’m learning."
-  },
-  {
-    "objectID": "index.html#about-this-portfolio",
-    "href": "index.html#about-this-portfolio",
-    "title": "Welcome to My Data Science Portfolio",
-    "section": "",
-    "text": "This portfolio shows my work learning data science. Each project includes:\n\nMy code with documentation\nVisualizations I created\nWhat I learned and discovered\n\nI built this site using Quarto and host it on GitHub Pages."
-  },
-  {
-    "objectID": "index.html#skills-im-learning",
-    "href": "index.html#skills-im-learning",
-    "title": "Welcome to My Data Science Portfolio",
-    "section": "",
-    "text": "Programming: Python, Pandas for data analysis\nVisualization: Creating charts with Matplotlib and Seaborn\nData Collection: Getting data from files, websites, and APIs\nAnalysis: Finding patterns and answering questions with data"
-  },
-  {
-    "objectID": "index.html#my-projects",
-    "href": "index.html#my-projects",
-    "title": "Welcome to My Data Science Portfolio",
-    "section": "",
-    "text": "Learn how I explore datasets to find interesting patterns and answer questions.\n\n\n\nSee how I gather data from different sources and prepare it for analysis.\n\n\n\nSee how I tackle a data science project beginning to end.\n\n\n\nThanks for visiting! Feel free to explore my projects and see what I’m learning."
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About Me",
-    "section": "",
-    "text": "Hello! My name is Jane Gustafson, and I am from Fairfax, Virginia. I am a dedicated and detail-oriented student with a passion for learning. I am currently pursuing a Bachelor of Science in Statistics with an emphasis in data science and a minor in Spanish at Brigham Young University. I enjoy using critical thinking to solve problems which is why my academic and professional interests include statistical modeling and data analysis to apply data-driven insights to real-world problems."
-  },
-  {
-    "objectID": "about.html#background",
-    "href": "about.html#background",
-    "title": "About Me",
-    "section": "",
-    "text": "Hello! My name is Jane Gustafson, and I am from Fairfax, Virginia. I am a dedicated and detail-oriented student with a passion for learning. I am currently pursuing a Bachelor of Science in Statistics with an emphasis in data science and a minor in Spanish at Brigham Young University. I enjoy using critical thinking to solve problems which is why my academic and professional interests include statistical modeling and data analysis to apply data-driven insights to real-world problems."
-  },
-  {
-    "objectID": "about.html#education",
-    "href": "about.html#education",
-    "title": "About Me",
-    "section": "Education",
-    "text": "Education\n\nBrigham Young University, Provo, UT\nBachelor of Science in Statistics: Data Science (Minor in Spanish)\nExpected Graduation: April 2027\n\nGPA: 3.88\n\nScholarships: Brigham Young Scholarship (2021-2022, 2025-2026)\n\nRelevant coursework: Statistical Modeling, Statistical Inference and Probability, Bayesian Statistics, R Programming, Computer Science"
-  },
-  {
-    "objectID": "about.html#skills-interests",
-    "href": "about.html#skills-interests",
-    "title": "About Me",
-    "section": "Skills & Interests",
-    "text": "Skills & Interests\n\nTechnical Skills\nProgramming & Technical: R, Python, SQL, VBA (basic)\nData & Analytics: Statistical Modeling, Data Cleaning, Exploratory Data Analysis, Pandas, Numpy\nVisualization: Matplotlib, Seaborn Machine Learning: Scikit-learn\nTools & Software: Excel, MediaGenix, Git/Github, Asana, Dalet\nSoft Skills: Communication, teamwork, time management, problem-solving Languages: English (native), Spanish (advanced/professional)\n\n\nAreas of Interest\n\nCustomer behavior and marketing analytics\nEthical AI and responsible data use\nData-driven decision making and real-world problem solving"
-  },
-  {
-    "objectID": "about.html#goals",
-    "href": "about.html#goals",
-    "title": "About Me",
-    "section": "Goals",
-    "text": "Goals\nThrough my data science journey, I hope to:\n\nStrengthen my proficiency in Python and advanced data analysis libraries\nDeepen my understanding of machine learning algorithms\nWork on impactful projects that drive strategic decision-making\nSolve real-world challenges through analytical thinking"
-  },
-  {
-    "objectID": "about.html#get-to-know-me",
-    "href": "about.html#get-to-know-me",
-    "title": "About Me",
-    "section": "Get to Know Me",
-    "text": "Get to Know Me\nOutside of academics and work, I enjoy listening to music, learning languages, and connecting with people from diverse backgrounds. I have a passion for baking, traveling, and volunteering. I enjoy participating in sports, mainly soccer and pickleball, as well as active activities like hiking and rock climbing. Some fun facts about me are that I’ve been bowling in the White House and I’ve also sat courtside at a Utah Jazz basketball game!"
-  },
-  {
-    "objectID": "about.html#work-experience",
-    "href": "about.html#work-experience",
-    "title": "About Me",
-    "section": "Work Experience",
-    "text": "Work Experience\nBYU Broadcasting – Student Break Scheduler, Provo, UT\nMarch 2025 – Present\nI help schedule and manage on-air broadcast breaks using priority-based media systems while ensuring seamless program transitions and eliminating dead airtime during live broadcasts. I create and organize trailer campaigns, linking media assets to promotional content and strive to maintain accuracy and consistency under time-sensitive, high-stakes conditions.\nI’ve also had the opportunity to sit in on meetings with the statistical analysis team to understand the ratings and viewership of BYUtv shows."
-  },
-  {
-    "objectID": "about.html#volunteer-experience",
-    "href": "about.html#volunteer-experience",
-    "title": "About Me",
-    "section": "Volunteer Experience",
-    "text": "Volunteer Experience\nThe Church of Jesus Christ of Latter-Day Saints – Volunteer Representative, Mexico City, Mexico\nOctober 2022 – April 2024\n- Gained experience in cold-call techniques and interpersonal skills with a 70+ hour work week\n- Provided interactive training to large groups in over a dozen meetings\n- Learned to effectively communicate and collaborate with diverse audiences in a second language"
-  },
-  {
-    "objectID": "about.html#contact",
-    "href": "about.html#contact",
-    "title": "About Me",
-    "section": "Contact",
-    "text": "Contact\n\nEmail: jkgusty333@gmail.com\nGitHub: github.com/jkgusty\nLinkedIn: linkedin.com/in/jkgusty\n\n\nThis portfolio showcases my learning progress and projects completed during my data science studies."
+    "text": "Either copy this tutorial code and run it on your own machine or experiment with groupby on your own datasets. Try combining multiple columns, applying different aggregation functions, and transforming groups to calculate percentages or rankings. Understanding groupby deeply will make your data analysis faster, cleaner, and more efficient."
   }
 ]

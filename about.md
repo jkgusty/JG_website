@@ -26,7 +26,7 @@ Expected Graduation: April 2027
 ### Technical Skills
 **Programming & Technical:** R, Python, SQL, VBA (basic)  
 **Data & Analytics:** Statistical Modeling, Data Cleaning, Exploratory Data Analysis, Pandas, Numpy  
-**Visualization:** Matplotlib, Seaborn
+**Visualization:** Matplotlib, Seaborn  
 **Machine Learning:** Scikit-learn  
 **Tools & Software:** Excel, MediaGenix, Git/Github, Asana, Dalet  
 **Soft Skills:** Communication, teamwork, time management, problem-solving
