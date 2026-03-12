@@ -20,6 +20,69 @@
     ]
   },
   {
+    "objectID": "data_acquisition.html",
+    "href": "data_acquisition.html",
+    "title": "Exploring the World’s Best-Selling Books: Data Acquisition and Analysis",
+    "section": "",
+    "text": "Books have fascinated humans for centuries, serving as windows into different cultures, histories, and ideas. But beyond their cultural and literary value, books also have measurable popularity, reflected in sales numbers that reach millions, or even hundreds of millions, of copies. Studying these best-selling books provides a unique opportunity to understand trends in readership, publishing, and literary tastes over time.\nBy scraping and combining data, we can explore how metadata such as author, genre, original language, and page count relate to book popularity. Additionally, the dataset provides practice for data cleaning, scraping, and enrichment techniques which are all critical skills in modern data science."
+  },
+  {
+    "objectID": "data_acquisition.html#introduction",
+    "href": "data_acquisition.html#introduction",
+    "title": "Exploring the World’s Best-Selling Books: Data Acquisition and Analysis",
+    "section": "",
+    "text": "Books have fascinated humans for centuries, serving as windows into different cultures, histories, and ideas. But beyond their cultural and literary value, books also have measurable popularity, reflected in sales numbers that reach millions, or even hundreds of millions, of copies. Studying these best-selling books provides a unique opportunity to understand trends in readership, publishing, and literary tastes over time.\nBy scraping and combining data, we can explore how metadata such as author, genre, original language, and page count relate to book popularity. Additionally, the dataset provides practice for data cleaning, scraping, and enrichment techniques which are all critical skills in modern data science."
+  },
+  {
+    "objectID": "data_acquisition.html#motivating-question",
+    "href": "data_acquisition.html#motivating-question",
+    "title": "Exploring the World’s Best-Selling Books: Data Acquisition and Analysis",
+    "section": "Motivating Question",
+    "text": "Motivating Question\nThe main question driving this project is: what factors contribute to a book’s widespread success?\nWhile a dataset of best-selling books cannot capture every facet of literary success, it can offer interesting insights. For example:\n\nDo longer books sell more, or is there an ideal page range for mass-market appeal?\n\nAre certain genres more likely to achieve multi-million sales?\n\nDoes the original language of a book influence its global popularity?\n\nThese questions motivated the creation of a dataset that combines original metadata with information such as page counts from Open Library."
+  },
+  {
+    "objectID": "data_acquisition.html#ethics-and-responsible-data-acquisition",
+    "href": "data_acquisition.html#ethics-and-responsible-data-acquisition",
+    "title": "Exploring the World’s Best-Selling Books: Data Acquisition and Analysis",
+    "section": "Ethics and Responsible Data Acquisition",
+    "text": "Ethics and Responsible Data Acquisition\nBefore collecting any data, it was essential to ensure that the project adhered to ethical and legal standards. The Wikipedia pages used for initial data acquisition are freely accessible under Creative Commons licenses, allowing users to view and reuse content. All data collection followed responsible scraping practices, including:\n\nLimited request rates: Automated scripts included delays to avoid overwhelming servers.\n\nUse of public APIs: Open Library’s API was used to fetch page counts, respecting their guidelines and limits.\n\nNo private or sensitive data collected: Only publicly available metadata was used.\n\nBy combining these sources responsibly, the project avoids ethical or legal issues while still providing meaningful data."
+  },
+  {
+    "objectID": "data_acquisition.html#steps-to-get-started",
+    "href": "data_acquisition.html#steps-to-get-started",
+    "title": "Exploring the World’s Best-Selling Books: Data Acquisition and Analysis",
+    "section": "Steps to Get Started",
+    "text": "Steps to Get Started\nIf you want to create a similar dataset, here’s a high-level overview of the workflow:\n\nIdentify a reliable data source: Wikipedia’s “List of best-selling books” provides structured tables for top-selling books.\nScrape or extract the data:\n\nThe initial data can be copied directly from tables or scraped programmatically using Python libraries like pandas.read_html().\n\nFocus on relevant columns such as Book, Author(s), Original Language, First Published, Genre, and Sales.\n\nClean the raw data:\n\nRemove references, footnotes, and brackets from sales numbers (e.g., “&gt;200 million[20]” → “&gt;200 million”).\n\nStandardize text formats (trimming whitespace, consistent capitalization).\n\nHandle missing values using NaN.\n\nEnrich the data:\n\nUse Open Library’s API to fetch page counts.\n\nFor each book, query the API by title and author, then retrieve the maximum realistic page count from all editions.\n\nThis step enhances your dataset and makes it more useful for analysis.\n\nSave the dataset:\n\nAfter cleaning and enrichment, export your final DataFrame to a CSV file.\n\nThis makes it easy to share or use in further analysis."
+  },
+  {
+    "objectID": "data_acquisition.html#overview-of-the-final-dataset",
+    "href": "data_acquisition.html#overview-of-the-final-dataset",
+    "title": "Exploring the World’s Best-Selling Books: Data Acquisition and Analysis",
+    "section": "Overview of the Final Dataset",
+    "text": "Overview of the Final Dataset\nThe final dataset, saved as books_data.csv, contains 205 rows (books) and 7 columns:\n\n\n\n\n\n\n\nColumn\nDescription\n\n\n\n\nBook\nTitle of the book\n\n\nAuthor(s)\nName(s) of the author(s)\n\n\nOriginal Language\nLanguage in which the book was originally published\n\n\nFirst Published\nYear of the first publication\n\n\nGenre\nLiterary genre of the book\n\n\nSales\nApproximate number of copies sold (brackets removed)\n\n\nPages\nApproximate page count (from Open Library)\n\n\n\nData Quality Considerations:\n- Some page counts remain missing (NaN) if Open Library had no editions with valid information.\n- Sales figures are approximate and can vary across sources.\n- No duplicates exist because each row represents a unique book.\n- Textual inconsistencies (e.g., variations in author names) were minimized during cleaning."
+  },
+  {
+    "objectID": "data_acquisition.html#lessons-learned-and-challenges",
+    "href": "data_acquisition.html#lessons-learned-and-challenges",
+    "title": "Exploring the World’s Best-Selling Books: Data Acquisition and Analysis",
+    "section": "Lessons Learned and Challenges",
+    "text": "Lessons Learned and Challenges\nWorking with multiple sources highlights some common data challenges:\n\nInconsistent or missing data: Not all books had page counts or complete metadata. Using multiple editions and taking the max page count helped mitigate this.\n\nData cleaning is critical: Simple transformations like removing brackets from sales figures or trimming whitespace can dramatically improve usability.\n\nAPIs have limits: Google Books API imposes daily quotas, making Open Library a better alternative for bulk enrichment.\n\nThese lessons are useful for anyone attempting a similar project, as they demonstrate the importance of planning for missing or inconsistent information."
+  },
+  {
+    "objectID": "data_acquisition.html#resources-and-links",
+    "href": "data_acquisition.html#resources-and-links",
+    "title": "Exploring the World’s Best-Selling Books: Data Acquisition and Analysis",
+    "section": "Resources and Links",
+    "text": "Resources and Links\n\nWikipedia article: List of best-selling books\n\nOpen Library API: https://openlibrary.org/developers/api\n\nPython libraries used: pandas, requests, io.StringIO, time.sleep\n\nCode Repository:\n- All code used to create and enrich this dataset is available on GitHub: data_acquisition_blog"
+  },
+  {
+    "objectID": "data_acquisition.html#conclusion",
+    "href": "data_acquisition.html#conclusion",
+    "title": "Exploring the World’s Best-Selling Books: Data Acquisition and Analysis",
+    "section": "Conclusion",
+    "text": "Conclusion\nThis project demonstrates how publicly available information about books can be combined, cleaned, and enriched to create a usable dataset for statistical analysis. While some data is approximate or incomplete, the dataset provides a strong foundation for exploring questions about book popularity, genres, and publication trends.\nBy following the steps outlined here, namely ethical data acquisition, thoughtful cleaning, and API enrichment, others can replicate or expand on this work, exploring similar questions in literature, publishing, or other domains where public datasets exist."
+  },
+  {
     "objectID": "tutorial.html",
     "href": "tutorial.html",
     "title": "Mastering Pandas Groupby for Data Analysis",
@@ -88,5 +151,68 @@
     "title": "Mastering Pandas Groupby for Data Analysis",
     "section": "",
     "text": "Either copy this tutorial code and run it on your own machine or experiment with groupby on your own datasets. Try combining multiple columns, applying different aggregation functions, and transforming groups to calculate percentages or rankings. Understanding groupby deeply will make your data analysis faster, cleaner, and more efficient."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About Me",
+    "section": "",
+    "text": "Hello! My name is Jane Gustafson, and I am from Fairfax, Virginia. I am a dedicated and detail-oriented student with a passion for learning. I am currently pursuing a Bachelor of Science in Statistics with an emphasis in data science and a minor in Spanish at Brigham Young University. I enjoy using critical thinking to solve problems which is why my academic and professional interests include statistical modeling and data analysis to apply data-driven insights to real-world problems."
+  },
+  {
+    "objectID": "about.html#background",
+    "href": "about.html#background",
+    "title": "About Me",
+    "section": "",
+    "text": "Hello! My name is Jane Gustafson, and I am from Fairfax, Virginia. I am a dedicated and detail-oriented student with a passion for learning. I am currently pursuing a Bachelor of Science in Statistics with an emphasis in data science and a minor in Spanish at Brigham Young University. I enjoy using critical thinking to solve problems which is why my academic and professional interests include statistical modeling and data analysis to apply data-driven insights to real-world problems."
+  },
+  {
+    "objectID": "about.html#education",
+    "href": "about.html#education",
+    "title": "About Me",
+    "section": "Education",
+    "text": "Education\n\nBrigham Young University, Provo, UT\nBachelor of Science in Statistics: Data Science (Minor in Spanish)\nExpected Graduation: April 2027\n\nGPA: 3.88\n\nScholarships: Brigham Young Scholarship (2021-2022, 2025-2026)\n\nRelevant coursework: Statistical Modeling, Statistical Inference and Probability, Bayesian Statistics, R Programming, Computer Science"
+  },
+  {
+    "objectID": "about.html#skills-interests",
+    "href": "about.html#skills-interests",
+    "title": "About Me",
+    "section": "Skills & Interests",
+    "text": "Skills & Interests\n\nTechnical Skills\nProgramming & Technical: R, Python, SQL, VBA (basic)\nData & Analytics: Statistical Modeling, Data Cleaning, Exploratory Data Analysis, Pandas, Numpy\nVisualization: Matplotlib, Seaborn\nMachine Learning: Scikit-learn\nTools & Software: Excel, MediaGenix, Git/Github, Asana, Dalet\nSoft Skills: Communication, teamwork, time management, problem-solving Languages: English (native), Spanish (advanced/professional)\n\n\nAreas of Interest\n\nCustomer behavior and marketing analytics\nEthical AI and responsible data use\nData-driven decision making and real-world problem solving"
+  },
+  {
+    "objectID": "about.html#goals",
+    "href": "about.html#goals",
+    "title": "About Me",
+    "section": "Goals",
+    "text": "Goals\nThrough my data science journey, I hope to:\n\nStrengthen my proficiency in Python and advanced data analysis libraries\nDeepen my understanding of machine learning algorithms\nWork on impactful projects that drive strategic decision-making\nSolve real-world challenges through analytical thinking"
+  },
+  {
+    "objectID": "about.html#get-to-know-me",
+    "href": "about.html#get-to-know-me",
+    "title": "About Me",
+    "section": "Get to Know Me",
+    "text": "Get to Know Me\nOutside of academics and work, I enjoy listening to music, learning languages, and connecting with people from diverse backgrounds. I have a passion for baking, traveling, and volunteering. I enjoy participating in sports, mainly soccer and pickleball, as well as active activities like hiking and rock climbing. Some fun facts about me are that I’ve been bowling in the White House and I’ve also sat courtside at a Utah Jazz basketball game!"
+  },
+  {
+    "objectID": "about.html#work-experience",
+    "href": "about.html#work-experience",
+    "title": "About Me",
+    "section": "Work Experience",
+    "text": "Work Experience\nBYU Broadcasting – Student Break Scheduler, Provo, UT\nMarch 2025 – Present\nI help schedule and manage on-air broadcast breaks using priority-based media systems while ensuring seamless program transitions and eliminating dead airtime during live broadcasts. I create and organize trailer campaigns, linking media assets to promotional content and strive to maintain accuracy and consistency under time-sensitive, high-stakes conditions.\nI’ve also had the opportunity to sit in on meetings with the statistical analysis team to understand the ratings and viewership of BYUtv shows."
+  },
+  {
+    "objectID": "about.html#volunteer-experience",
+    "href": "about.html#volunteer-experience",
+    "title": "About Me",
+    "section": "Volunteer Experience",
+    "text": "Volunteer Experience\nThe Church of Jesus Christ of Latter-Day Saints – Volunteer Representative, Mexico City, Mexico\nOctober 2022 – April 2024\n- Gained experience in cold-call techniques and interpersonal skills with a 70+ hour work week\n- Provided interactive training to large groups in over a dozen meetings\n- Learned to effectively communicate and collaborate with diverse audiences in a second language"
+  },
+  {
+    "objectID": "about.html#contact",
+    "href": "about.html#contact",
+    "title": "About Me",
+    "section": "Contact",
+    "text": "Contact\n\nEmail: jkgusty333@gmail.com\nGitHub: github.com/jkgusty\nLinkedIn: linkedin.com/in/jkgusty\n\n\nThis portfolio showcases my learning progress and projects completed during my data science studies."
   }
 ]
